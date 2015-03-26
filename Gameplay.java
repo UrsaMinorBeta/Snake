@@ -21,10 +21,10 @@ public class Gameplay extends JFrame implements KeyListener {
 
     // Initialize stuff
     Display display = new Display();
+    addKeyListener(display);
     Field field = new Field(100, 100);
     Snake snake1 = new Snake(30, 20, 1, 300);
     Snake snake2 = new Snake(50, 40, 2, 100);
-    addKeyListener(this);  // bad style
     run(display, field, snake1, snake2);
   }
 
