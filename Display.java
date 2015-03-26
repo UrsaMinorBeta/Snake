@@ -1,17 +1,17 @@
 import java.awt.*;
-import javax.swing.*; 
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-public class Display extends JFrame implements KeyListener {
+public class Display extends JFrame {
 
   class DrawPanel extends JPanel {
     Field field;
     public DrawPanel (Field field2) {
       field = field2;
     }
-  
+
     public void paintComponent (Graphics g) {
       super.paintComponent(g); //??????
       setBackground(Color.red);
@@ -36,15 +36,15 @@ public class Display extends JFrame implements KeyListener {
     // frame.pack();  // adjusts frame size to content (not used due to grid)
     setSize(1000, 1000);
     setVisible(true);  // well...
-   
+
     // frame.setContentPane(new DrawPanel());
     setVisible(true);
   }
-  
+
   public void show(Field field) {
     setContentPane(new DrawPanel(field));
-    setVisible(true); 
-    
+    setVisible(true);
+
     final String ANSI_CLS = "\u001b[2J";
     final String ANSI_HOME = "\u001b[H";
     System.out.print(ANSI_CLS + ANSI_HOME);
