@@ -20,9 +20,9 @@ public class Gameplay extends JFrame implements KeyListener {
     setVisible(true);
 
     // Initialize stuff
-    Display display = new Display();
+    Field field = new Field(500, 500);
+    Display display = new Display(field);
     display.addKeyListener(this);
-    Field field = new Field(100, 100);
     Snake snake1 = new Snake(30, 20, 1, 300);
     Snake snake2 = new Snake(50, 40, 2, 100);
     run(display, field, snake1, snake2);
@@ -43,7 +43,7 @@ public class Gameplay extends JFrame implements KeyListener {
 
       // Sleep... bad, what's better?
       try {
-        Thread.sleep(75);
+        Thread.sleep(40);
       } catch (Exception e) {
       }
     }

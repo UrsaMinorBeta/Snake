@@ -19,7 +19,7 @@ public class Display extends JFrame {
       for (int i = 0; i < field.sizeX; i++) {
         for (int j = 0; j < field.sizeY; j++) {
           if (field.field[i][j] != 0) {
-            g.fillOval(i*10, j*10, 10, 10);
+            g.fillOval(i*2, j*2, 10, 10);
           }
         }
       }
@@ -27,7 +27,7 @@ public class Display extends JFrame {
     }
   }
 
-  public Display() {
+  public Display(Field field) {
     // Make window
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -35,17 +35,17 @@ public class Display extends JFrame {
     setLocationRelativeTo(null); // Make it appear in center
     // frame.pack();  // adjusts frame size to content (not used due to grid)
     setSize(1000, 1000);
-    setVisible(true);  // well...
 
     // frame.setContentPane(new DrawPanel());
+    setContentPane(new DrawPanel(field));
     setVisible(true);
   }
 
   public void show(Field field) {
-    setContentPane(new DrawPanel(field));
+    repaint();
     setVisible(true);
-
-    final String ANSI_CLS = "\u001b[2J";
+  }
+/*    final String ANSI_CLS = "\u001b[2J";
     final String ANSI_HOME = "\u001b[H";
     System.out.print(ANSI_CLS + ANSI_HOME);
     System.out.flush();
@@ -57,7 +57,7 @@ public class Display extends JFrame {
       }
       System.out.println();
     }
-  }
+  }*/
   // Following: hacked (but efficient) solution for keyHandling
   /* public void keyPressed(KeyEvent e) {
     if (37 == e.getKeyCode()) left1 = true;
