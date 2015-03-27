@@ -9,7 +9,7 @@ public class Display extends JFrame {
   // Make global variables for screen/framesize
   int screenWidth;
   int screenHeight;
-  float scale;  // Determine the scaling of the field (from screen resolution)
+  int scale;  // Determine the scaling of the field (from screen resolution)
 
   class DrawPanel extends JPanel {
     Field field;
@@ -24,11 +24,10 @@ public class Display extends JFrame {
       for (int i = 0; i < field.sizeX; i++) {
         for (int j = 0; j < field.sizeY; j++) {
           if (field.field[i][j] != 0) {
-            g.fillOval(i*(int)Math.floor(scale), j*(int)Math.floor(scale), 5, 5);
+            g.fillOval(i*scale, j*scale, 1, 1);
           }
         }
       }
-      // g.fillOval(10,100,50,30);
     }
   }
 
@@ -43,10 +42,10 @@ public class Display extends JFrame {
     screenHeight = screenSize.height;
     screenWidth = screenSize.width;
     // Calculate scaling factor
-    scale = Math.min(screenHeight/(float)field.sizeX, screenWidth/(float)field.sizeY);
+    scale = (int)Math.floor(Math.min(screenHeight/(float)field.sizeX, screenWidth/(float)field.sizeY));
     // Set frame size by multplying the scaling factors with field size (and
     // adding some for the border, though not sure why
-    setBounds(0,0,field.sizeX*(int)Math.ceil(scale)+10, field.sizeY*(int)Math.ceil(scale)+50);
+    setBounds(0,0,field.sizeX*scale+10, field.sizeY*scale+50);
 
     setContentPane(new DrawPanel(field));
     setVisible(true);
