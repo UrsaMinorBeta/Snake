@@ -14,7 +14,7 @@ public class Field {
 
   public Field(int width, int heigth) {
     numPlayers = 1;  // useless at the moment
-    walls = false;  // should be true
+    walls = true;  // should be true
     sizeY = width;
     sizeX = heigth;
     // initialize the field
@@ -25,13 +25,15 @@ public class Field {
       }
     }
     // draw the border
-    for (int i = 0; i < sizeX; i++) {
-      field[i][0] = 1;
-      field[i][sizeY - 1] = 1;
-    }
-    for (int j = 0; j < sizeY; j++) {
-      field[0][j] = 1;
-      field[sizeX - 1][j] = 1;
+    if (walls) {
+      for (int i = 0; i < sizeX; i++) {
+        field[i][0] = 1;
+        field[i][sizeY - 1] = 1;
+      }
+      for (int j = 0; j < sizeY; j++) {
+        field[0][j] = 1;
+        field[sizeX - 1][j] = 1;
+      }
     }
     
   }
