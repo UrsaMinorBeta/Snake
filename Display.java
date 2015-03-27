@@ -42,7 +42,7 @@ public class Display extends JFrame {
     screenHeight = screenSize.height;
     screenWidth = screenSize.width;
     // Calculate scaling factor
-    scale = (int)Math.floor(Math.min(screenHeight/(float)field.sizeX, screenWidth/(float)field.sizeY));
+    scale = (int)Math.floor(Math.min(screenHeight/(float)field.sizeY, screenWidth/(float)field.sizeX));
     // Set frame size by multplying the scaling factors with field size (and
     // adding some for the border, though not sure why
     setBounds(0,0,field.sizeX*scale+10, field.sizeY*scale+50);
