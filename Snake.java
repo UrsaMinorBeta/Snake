@@ -78,14 +78,30 @@ public class Snake {
     // field (solved with lastPost to avoid false collision error (which only
     // occurs because of positions as doubles anyway) which is NOT nice but
     // rather just for proof of concept)
+    double checkPosX = posX;
+    double checkPosY = posY;
+    // checkPosX = (size + 0) * Math.sin(orientation*(Math.PI/180));
+    checkPosX = (size + 1) * Math.cos(rad)-0;
+    checkPosX = Math.round(checkPosX);
+    checkPosY = (size + 1) * Math.sin(rad)-0;
+    checkPosY = Math.round(checkPosY);
+    System.out.println(id+"--c:  "+(int)(posX+checkPosX)+"/"+(int)(posY+checkPosY));
+    System.out.println(id+"--l:  "+lastPosX+"/"+lastPosY);
     if (field.field[(int)posX][(int)posY] == 0) {
       field.field[(int)posX][(int)posY] = id;
+      field.field[(int)posX-1][(int)posY-1] = id;
+      field.field[(int)posX+1][(int)posY-1] = id;
+      field.field[(int)posX-1][(int)posY+1] = id;
+      field.field[(int)posX+1][(int)posY+1] = id;
       // ...
       lastPosX = (int)posX;
       lastPosY = (int)posY;
       // ...
+      // field.field[(int)posX+(int)checkPosX][(int)posY+(int)checkPosY] = 3;
+      // ...
       return false;
-    } else if ((int)posX == lastPosX && (int)posY == lastPosY) {
+    } else if ((int)(posY+checkPosX+1) == lastPosX && (int)(posY+checkPosY+1) == lastPosY) {
+    // } else if ((int)posY == lastPosX && (int)posY == lastPosY) {
       // ...
       lastPosX = (int)posX;
       lastPosY = (int)posY;
