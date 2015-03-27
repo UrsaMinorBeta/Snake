@@ -26,10 +26,6 @@ public class Snake {
     alive = true;
     posX = startX;
     posY = startY;
-    // ...
-    lastPosX = (int)posX;
-    lastPosY = (int)posY;
-    // ...
     orientation = startOrientation;
     size = 1;
     speed = 1;
@@ -93,14 +89,10 @@ public class Snake {
       field.field[(int)posX+1][(int)posY-1] = id;
       field.field[(int)posX-1][(int)posY+1] = id;
       field.field[(int)posX+1][(int)posY+1] = id;
-      // ...
-      lastPosX = (int)posX;
-      lastPosY = (int)posY;
-      // ...
       // field.field[(int)posX+(int)checkPosX][(int)posY+(int)checkPosY] = 3;
       // ...
       return false;
-    } else if ((int)(posY+checkPosX+1) == lastPosX && (int)(posY+checkPosY+1) == lastPosY) {
+    } else if (field.field[(int)(posX+checkPosX+1)][(int)(posY+checkPosY+1)] == 0) {
     // } else if ((int)posY == lastPosX && (int)posY == lastPosY) {
       // ...
       lastPosX = (int)posX;
