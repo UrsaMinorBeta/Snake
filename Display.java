@@ -5,6 +5,11 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class Display extends JFrame {
+  
+  // Make global variables for screen/framesize
+  int screenWidth;
+  int screenHeight;
+  int scale;  // Determine the scaling of the field (from screen resolution)
 
   class DrawPanel extends JPanel {
     Field field;
@@ -19,11 +24,10 @@ public class Display extends JFrame {
       for (int i = 0; i < field.sizeX; i++) {
         for (int j = 0; j < field.sizeY; j++) {
           if (field.field[i][j] != 0) {
-            g.fillOval(i*2, j*2, 10, 10);
+            g.fillOval(i*scale, j*scale, 1, 1);
           }
         }
       }
-      // g.fillOval(10,100,50,30);
     }
   }
 
@@ -33,10 +37,16 @@ public class Display extends JFrame {
 
     // Show window
     setLocationRelativeTo(null); // Make it appear in center
-    // frame.pack();  // adjusts frame size to content (not used due to grid)
-    setSize(1000, 1000);
+    // Set size to fullscreen using Toolkit
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    screenHeight = screenSize.height;
+    screenWidth = screenSize.width;
+    // Calculate scaling factor
+    scale = (int)Math.floor(Math.min(screenHeight/(float)field.sizeY, screenWidth/(float)field.sizeX));
+    // Set frame size by multplying the scaling factors with field size (and
+    // adding some for the border, though not sure why
+    setBounds(0,0,field.sizeX*scale+10, field.sizeY*scale+50);
 
-    // frame.setContentPane(new DrawPanel());
     setContentPane(new DrawPanel(field));
     setVisible(true);
   }
