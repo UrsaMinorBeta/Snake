@@ -20,7 +20,7 @@ public class Gameplay implements KeyListener {
     setVisible(true);
 */
     // Initialize stuff
-    Field field = new Field(700, 700);
+    Field field = new Field(1200, 700);
     Display display = new Display(field);
     display.addKeyListener(this);
     Snake snake1 = new Snake(100, 100, 1, 300);

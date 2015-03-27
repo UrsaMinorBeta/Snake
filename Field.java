@@ -15,8 +15,8 @@ public class Field {
   public Field(int width, int heigth) {
     numPlayers = 1;  // useless at the moment
     walls = true;  // should be true
-    sizeY = width;
-    sizeX = heigth;
+    sizeX = width;
+    sizeY = heigth;
     // initialize the field
     field = new int[sizeX][sizeY];
     for (int i = 0; i < sizeX; i++) {
