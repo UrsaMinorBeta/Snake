@@ -20,11 +20,11 @@ public class Gameplay implements KeyListener {
     setVisible(true);
 */
     // Initialize stuff
-    Field field = new Field(1200, 700);
+    Field field = new Field(100, 100);
     Display display = new Display(field);
     display.addKeyListener(this);
-    Snake snake1 = new Snake(100, 100, 1, 300);
-    Snake snake2 = new Snake(200, 200, 2, 100);
+    Snake snake1 = new Snake(50, 50, 1, 300);
+    Snake snake2 = new Snake(20, 20, 2, 100);
     run(display, field, snake1, snake2);
   }
 
@@ -35,15 +35,17 @@ public class Gameplay implements KeyListener {
 
     while(true) {
       // Moving snakes, killing them if necessary
-      if (!snake1.alive || snake1.move(field, left1, right1)) snake1.alive = false;
-      if (!snake2.alive || snake2.move(field, left2, right2)) snake2.alive = false;
+      // if (!snake1.alive || snake1.move(field, left1, right1)) snake1.alive = false;
+      // if (!snake2.alive || snake2.move(field, left2, right2)) snake2.alive = false;
+      if (snake1.alive) snake1.move(field, left1, right1);
+      if (snake2.alive) snake2.move(field, left2, right2);
       // Display field
       display.show(field);
 
 
       // Sleep... bad, what's better?
       try {
-        Thread.sleep(20);
+        Thread.sleep(100);
       } catch (Exception e) {
       }
     }

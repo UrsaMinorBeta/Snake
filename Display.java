@@ -24,7 +24,7 @@ public class Display extends JFrame {
       for (int i = 0; i < field.sizeX; i++) {
         for (int j = 0; j < field.sizeY; j++) {
           if (field.field[i][j] != 0) {
-            g.fillOval(i*scale, j*scale, 1, 1);
+            g.fillOval(i*scale, j*scale, 10, 10);
           }
         }
       }
@@ -41,7 +41,7 @@ public class Display extends JFrame {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     screenHeight = screenSize.height;
     screenWidth = screenSize.width;
-    // Calculate scaling factor
+    // Calculate scaling factor   vvv X <-> Y????
     scale = (int)Math.floor(Math.min(screenHeight/(float)field.sizeY, screenWidth/(float)field.sizeX));
     // Set frame size by multplying the scaling factors with field size (and
     // adding some for the border, though not sure why
@@ -67,22 +67,5 @@ public class Display extends JFrame {
       }
       System.out.println();
     }
-  }*/
-  // Following: hacked (but efficient) solution for keyHandling
-  /* public void keyPressed(KeyEvent e) {
-    if (37 == e.getKeyCode()) left1 = true;
-    if (39 == e.getKeyCode()) right1 = true;
-    if (81 == e.getKeyCode()) left2 = true;
-    if (87 == e.getKeyCode()) right2 = true;
-  }
-
-  public void keyReleased(KeyEvent e) {
-    if (37 == e.getKeyCode()) left1 = false;
-    if (39 == e.getKeyCode()) right1 = false;
-    if (81 == e.getKeyCode()) left2 = false;
-    if (87 == e.getKeyCode()) right2 = false;
-  }
-
-  public void keyTyped(KeyEvent e) {
   }*/
 }
