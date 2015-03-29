@@ -6,10 +6,8 @@ public class Snake {
   int id;
   boolean alive;  // alive or dead?
 
-  double posY;  // y is horizontal
-  double posX;  // x is vertical
-  int lastPosY;  // y is horizontal
-  int lastPosX;  // x is vertical
+  double posY;  
+  double posX;  
   int orientation;  // orientation
 
   double size;  // to scale size of snake; 1 for default
@@ -32,28 +30,34 @@ public class Snake {
     radius = 10;
   }
   
-  public class Tuple<X, Y> { 
-    public final X x; 
-    public final Y y; 
-    public Tuple(X x, Y y) { 
+  public class Tuple { 
+    public final int x; 
+    public final int y; 
+    public Tuple(int x, int y) { 
       this.x = x; 
       this.y = y; 
     } 
   }
 
-  /* public void circle(Field field, int posX, int posY, int size) {
+  public Tuple[] circle(Field field, int posX, int posY, int size) {
     // Return array with coordinates to paint for snake
-    int[] body;  // Array with Tuples to paint
-    int i = 0;
-    for (int n = 0; n < ) {
-      body[i] 
-  }*/
+    Tuple[] body;  // Array with Tuples to paint
+    body = new Tuple[5];
+    for (int i = 0; i < 5; i++) {
+      body[0] = new Tuple((int)posX,(int)posY);
+      body[1] = new Tuple((int)posX-1, (int)posY-1);
+      body[2] = new Tuple((int)posX+1, (int)posY-1);
+      body[3] = new Tuple((int)posX-1, (int)posY+1);
+      body[4] = new Tuple((int)posX+1, (int)posY+1);
+    }
+    return body;
+  }
 
   public void move(Field field, boolean left, boolean right) {
     /* Alters the field according the move of the snake. Always moves forward,
      * player can choose only between pressing left or right (or nothing).
      * Concept: First check whether a move would result in collision, move then.
-     * Gets a pointer of the field as argument; Returns  collision flag.
+     * Gets a pointer of the field as argument.
      */
 
     // Change orientation if left or right are triggered
@@ -66,14 +70,12 @@ public class Snake {
     // Put orientation into ... degrees?
     orientation = (orientation + 360) % 360;
     double rad = Math.toRadians(orientation);
-    // Check whether field is free and either return collision error or occupy
+    // Check whether field is free and kill snake 
     double checkPosX = posX;
     double checkPosY = posY;
     // checkPosX = (size + 0) * Math.sin(orientation*(Math.PI/180)); delete?
-    checkPosX = (size + 1) * Math.cos(rad)-0;
-    checkPosX = Math.round(checkPosX);
-    checkPosY = (size + 1) * Math.sin(rad)-0;
-    checkPosY = Math.round(checkPosY);
+    checkPosX = Math.round((size + 1) * Math.cos(rad)-0);
+    checkPosY = Math.round((size + 1) * Math.sin(rad)-0);
     System.out.println(id+"--c:  "+(int)(posX+checkPosX)+"/"+(int)(posY+checkPosY));
     if (field.field[(int)(posX+checkPosX)][(int)(posY+checkPosY)] != 0) {  // (= move allowed)
       alive = false;
@@ -84,11 +86,10 @@ public class Snake {
     posY += Math.sin(rad);
     posX += Math.cos(rad);
     // Paint "circle" around the position of the snake
-    field.field[(int)posX][(int)posY] = id;
-    field.field[(int)posX-1][(int)posY-1] = id;
-    field.field[(int)posX+1][(int)posY-1] = id;
-    field.field[(int)posX-1][(int)posY+1] = id;
-    field.field[(int)posX+1][(int)posY+1] = id;
+    Tuple[] body = circle(field, (int)posX, (int)posY, (int)size);
+    for (int i = 0; i < 5; i++) {
+      field.field[body[i].x][body[i].y] = id;
+    }
     // Now check whether we ran into a wall and if so, check if walls exist (and
     // either return collision error or set us on new position)
     // ... SHOULD BE REALIZED ABOVE, WALLS IMPLEMENTED DIFFERENT BE GOOD
