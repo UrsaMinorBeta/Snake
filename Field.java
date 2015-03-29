@@ -17,7 +17,7 @@ public class Field {
 
   public Field(int width, int heigth) {
     numPlayers = 1;  // useless at the moment
-    walls = true;  // should be true
+    walls = false;  // should be true
     sizeX = width;
     sizeY = heigth;
     // initialize the field

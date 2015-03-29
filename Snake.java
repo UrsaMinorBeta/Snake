@@ -53,6 +53,19 @@ public class Snake {
     return body;
   }
 
+  public void checkCollision(Field field, int posX, int posY, double rad) {
+    /* Checks whether a movement would cause a collision and kills the snake if so */
+    double checkPosX = posX + Math.round((size + 1) * Math.cos(rad)-0);
+    double checkPosY = posY + Math.round((size + 1) * Math.sin(rad)-0);
+    checkPosX = (checkPosX + field.sizeX) % field.sizeX;
+    checkPosY = (checkPosY + field.sizeY) % field.sizeY;
+    if (field.field[(int)(checkPosX)][(int)(checkPosY)] != 0) {  // (= move allowed)
+      alive = false;
+    }
+    // System.out.println(id+"--c:  "+(int)(checkPosX)+"/"+(int)(checkPosY));
+  }
+
+
   public void move(Field field, boolean left, boolean right) {
     /* Alters the field according the move of the snake. Always moves forward,
      * player can choose only between pressing left or right (or nothing).
@@ -71,15 +84,7 @@ public class Snake {
     orientation = (orientation + 360) % 360;
     double rad = Math.toRadians(orientation);
     // Check whether field is free and kill snake 
-    double checkPosX = posX;
-    double checkPosY = posY;
-    // checkPosX = (size + 0) * Math.sin(orientation*(Math.PI/180)); delete?
-    checkPosX = Math.round((size + 1) * Math.cos(rad)-0);
-    checkPosY = Math.round((size + 1) * Math.sin(rad)-0);
-    System.out.println(id+"--c:  "+(int)(posX+checkPosX)+"/"+(int)(posY+checkPosY));
-    if (field.field[(int)(posX+checkPosX)][(int)(posY+checkPosY)] != 0) {  // (= move allowed)
-      alive = false;
-    }
+    checkCollision(field, (int)posX, (int)posY, rad);
     // Next two lines to something slightly mysterious, but effectively realize
     // the moving (speed not accounted for yet, in general this solution might
     // not work well for variable stuff)
@@ -88,25 +93,9 @@ public class Snake {
     // Paint "circle" around the position of the snake
     Tuple[] body = circle(field, (int)posX, (int)posY, (int)size);
     for (int i = 0; i < 5; i++) {
-      field.field[body[i].x][body[i].y] = id;
-    }
-    // Now check whether we ran into a wall and if so, check if walls exist (and
-    // either return collision error or set us on new position)
-    // ... SHOULD BE REALIZED ABOVE, WALLS IMPLEMENTED DIFFERENT BE GOOD
-    // IDEA
-    if (posX < 0 || posX >= field.sizeX) {
-      if (field.walls) {
-        alive = false;
-      } else {
-        posX = (posX + field.sizeX) % field.sizeX;
-      }
-    }
-    if (posY < 0 || posY >= field.sizeY) {
-      if (field.walls) {
-        alive = false;
-      } else {
-        posY = (posY + field.sizeY) % field.sizeY;
-      }
+      int x = (body[i].x + field.sizeX) % field.sizeX;
+      int y = (body[i].y + field.sizeY) % field.sizeY;
+      field.field[x][y] = id;
     }
   }
 }
