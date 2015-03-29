@@ -42,6 +42,7 @@ public class Snake {
   }
 
   /* public void circle(Field field, int posX, int posY, int size) {
+    // Return array with coordinates to paint for snake
     int[] body;  // Array with Tuples to paint
     int i = 0;
     for (int n = 0; n < ) {
