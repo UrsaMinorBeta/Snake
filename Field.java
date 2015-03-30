@@ -61,4 +61,13 @@ public class Field {
   public Pickup findPickup(int id) {
     return pickups.get((-id) - 1);
   }
+
+  public void erase() {
+    for (int i = 0; i < sizeX; i++) {
+      for (int j = 0; j < sizeY; j++) {
+        field[i][j] = 0;
+      }
+    }
+
+  }
 }

@@ -29,7 +29,13 @@ public class Display extends JFrame {
             g.setColor(Color.green);
             g.fillOval(i*scale, j*scale, 10, 10);
           } else if (field.field[i][j] < 0) {
-            g.setColor(Color.black);
+            // its a pickup
+            Pickup pickup = field.findPickup(field.field[i][j]);
+            if (pickup.type == 1) {
+              g.setColor(Color.black);
+            } else if (pickup.type == 2) {
+              g.setColor(Color.yellow);
+            }
             g.fillOval(i*scale, j*scale, 10, 10);
           }
         }

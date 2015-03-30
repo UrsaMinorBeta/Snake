@@ -8,6 +8,7 @@ public class Pickup {
   int posY;
   // Types:
   // 1 = walls (on/off)
+  // 2 = erase everything
   int type;
 
   public Pickup(int identity, int X, int Y, int t) {
@@ -18,14 +19,16 @@ public class Pickup {
   }
 
   public void spawn(Field field) {
-    field.field[(int)posX][(int)posY]     = id;
-    for (int i = 0; i < 5; i++) {
-      field.field[(int)posX-i][(int)posY-i] = id;
-      field.field[(int)posX+i][(int)posY-i] = id;
-      field.field[(int)posX-i][(int)posY+i] = id;
-      field.field[(int)posX+i][(int)posY+i] = id;
+    if (posX > 5 && posX < field.sizeX -5 && posY > 5 && posY < field.sizeY -5) {
+      field.field[(int)posX][(int)posY]     = id;
+      for (int i = 0; i < 5; i++) {
+        field.field[(int)posX-i][(int)posY-i] = id;
+        field.field[(int)posX+i][(int)posY-i] = id;
+        field.field[(int)posX-i][(int)posY+i] = id;
+        field.field[(int)posX+i][(int)posY+i] = id;
+      }
+      field.pickups.add(this);
     }
-    field.pickups.add(this);
   }
 
   public void disappear(Field field) {
@@ -41,6 +44,8 @@ public class Pickup {
   public void perform(Snake snake, Field field) {
     if (type == 1) {
       field.wall();
+    } else if (type == 2) {
+      field.erase();
     }
     disappear(field);
   }

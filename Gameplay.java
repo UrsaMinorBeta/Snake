@@ -18,7 +18,7 @@ public class Gameplay implements KeyListener {
 
   public Gameplay() {
     // Initialize stuff
-    Field field = new Field(500, 500);
+    Field field = new Field(700, 700);
     Display display = new Display(field);
     display.addKeyListener(this);
     Snake snake1 = new Snake(50, 50, 1, 100);
@@ -40,8 +40,8 @@ public class Gameplay implements KeyListener {
       // Display field
       display.show(field);
       // Randomly spawn pickups
-      if (rand.nextInt(50) == 25) {
-        Pickup pickup = new Pickup(- (field.pickups.size() + 1), rand.nextInt(field.sizeX), rand.nextInt(field.sizeY), 1);
+      if (rand.nextInt(500) == 25) {
+        Pickup pickup = new Pickup(- (field.pickups.size() + 1), rand.nextInt(field.sizeX), rand.nextInt(field.sizeY), rand.nextInt(2)+1);
         pickup.spawn(field);
       }
 
