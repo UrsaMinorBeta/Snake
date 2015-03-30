@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Field {
   /* Class Field is supposed to be initialized once per game and contains
    * information about the current state of the field, as number of players,
@@ -8,8 +10,10 @@ public class Field {
 
   int sizeY;
   int sizeX;
-  boolean walls;  // True = walls, False = leave left: enter right
-  int[][] field;  // contains information for each cell with 0 = free
+  boolean walls = false;  // True = walls, False = leave left: enter right
+  int[][] field;  // contains information for each cell with 0 = free, pos int = snakes, neg int = pickups
+
+  List<Pickup> pickups = new ArrayList<Pickup>();  // contains all active pickups
 
   int numPlayers;
   int pointsToWin;
@@ -17,7 +21,6 @@ public class Field {
 
   public Field(int width, int heigth) {
     numPlayers = 1;  // useless at the moment
-    walls = false;  // should be true
     sizeX = width;
     sizeY = heigth;
     // initialize the field
@@ -27,7 +30,13 @@ public class Field {
         field[i][j] = 0;
       }
     }
-    // draw the border
+  }
+
+  public void wall() {
+    /* Creates walls if there are none
+     * And otherwise, it makes them gone
+     */
+    walls = !walls;
     if (walls) {
       for (int i = 0; i < sizeX; i++) {
         field[i][0] = 1;
@@ -37,7 +46,19 @@ public class Field {
         field[0][j] = 1;
         field[sizeX - 1][j] = 1;
       }
+    } else {
+      for (int i = 0; i < sizeX; i++) {
+        field[i][0] = 0;
+        field[i][sizeY - 1] = 0;
+      }
+      for (int j = 0; j < sizeY; j++) {
+        field[0][j] = 0;
+        field[sizeX - 1][j] = 0;
+      }
     }
-    
+  }
+
+  public Pickup findPickup(int id) {
+    return pickups.get((-id) - 1);
   }
 }

@@ -27,7 +27,7 @@ public class Snake {
     orientation = startOrientation;
     size = 4;  // Radius of snake (ceiled)
     speed = 1;
-    radius = 10;
+    radius = 2;
   }
   
   public class Tuple { 
@@ -59,8 +59,14 @@ public class Snake {
     double checkPosY = posY + Math.round((size + 1) * Math.sin(rad)-0);
     checkPosX = (checkPosX + field.sizeX) % field.sizeX;
     checkPosY = (checkPosY + field.sizeY) % field.sizeY;
-    if (field.field[(int)(checkPosX)][(int)(checkPosY)] != 0) {  // (= move allowed)
+    if (field.field[(int)(checkPosX)][(int)(checkPosY)] > 0) {  // (= move allowed)
       alive = false;
+    }
+    // Check for pickup
+    if (field.field[(int)(checkPosX)][(int)(checkPosY)] < 0) {  // (= move allowed)
+      Pickup pickup;
+      pickup = field.findPickup(field.field[(int)(checkPosX)][(int)(checkPosY)]);
+      pickup.perform(this, field);
     }
     // System.out.println(id+"--c:  "+(int)(checkPosX)+"/"+(int)(checkPosY));
   }

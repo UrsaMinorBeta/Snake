@@ -28,6 +28,9 @@ public class Display extends JFrame {
           } else if (field.field[i][j] == 2) {
             g.setColor(Color.green);
             g.fillOval(i*scale, j*scale, 10, 10);
+          } else if (field.field[i][j] < 0) {
+            g.setColor(Color.black);
+            g.fillOval(i*scale, j*scale, 10, 10);
           }
         }
       }

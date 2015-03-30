@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 public class Gameplay implements KeyListener {
   // Hacked solution
@@ -8,23 +9,22 @@ public class Gameplay implements KeyListener {
   boolean left1;
   boolean right2;
   boolean left2;
+  // Random number generator:
+  Random rand = new Random();
 
   public static void main(String[] args) {
     new Gameplay();
   }
 
   public Gameplay() {
-    // hacked solution
-   /* setSize(0, 0);
-    setLayout(null);
-    setVisible(true);
-*/
     // Initialize stuff
-    Field field = new Field(100, 100);
+    Field field = new Field(500, 500);
     Display display = new Display(field);
     display.addKeyListener(this);
-    Snake snake1 = new Snake(50, 50, 1, 300);
-    Snake snake2 = new Snake(20, 20, 2, 100);
+    Snake snake1 = new Snake(50, 50, 1, 100);
+    Snake snake2 = new Snake(200, 200, 2, 100);
+    // Pickup pickup1 = new Pickup(-1, 250, 250, 1);
+    // pickup1.spawn(field);
     run(display, field, snake1, snake2);
   }
 
@@ -35,17 +35,19 @@ public class Gameplay implements KeyListener {
 
     while(true) {
       // Moving snakes, killing them if necessary
-      // if (!snake1.alive || snake1.move(field, left1, right1)) snake1.alive = false;
-      // if (!snake2.alive || snake2.move(field, left2, right2)) snake2.alive = false;
-      if (snake1.alive) snake1.move(field, left1, right1);
-      if (snake2.alive) snake2.move(field, left2, right2);
+      if (snake1.alive) snake1.move(field, right1, left1);
+      if (snake2.alive) snake2.move(field, right2, left2);
       // Display field
       display.show(field);
-
+      // Randomly spawn pickups
+      if (rand.nextInt(50) == 25) {
+        Pickup pickup = new Pickup(- (field.pickups.size() + 1), rand.nextInt(field.sizeX), rand.nextInt(field.sizeY), 1);
+        pickup.spawn(field);
+      }
 
       // Sleep... bad, what's better?
       try {
-        Thread.sleep(100);
+        Thread.sleep(15);
       } catch (Exception e) {
       }
     }
