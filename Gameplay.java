@@ -28,7 +28,7 @@ public class Gameplay implements KeyListener {
 
   public void run(Display display, Field field, Snake snake1, Snake snake2) {
     /* Main loop, moves snakes and checks for collisions, putting snakes down
-     * and being interface between snakes and field
+     * and being interface between snakes and field and pickups
      */
 
     while(true) {
