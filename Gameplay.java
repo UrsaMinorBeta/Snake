@@ -18,13 +18,11 @@ public class Gameplay implements KeyListener {
 
   public Gameplay() {
     // Initialize stuff
-    Field field = new Field(700, 700);
+    Field field = new Field(500, 500);
     Display display = new Display(field);
     display.addKeyListener(this);
     Snake snake1 = new Snake(50, 50, 1, 100);
     Snake snake2 = new Snake(200, 200, 2, 100);
-    // Pickup pickup1 = new Pickup(-1, 250, 250, 1);
-    // pickup1.spawn(field);
     run(display, field, snake1, snake2);
   }
 

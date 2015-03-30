@@ -30,6 +30,7 @@ public class Display extends JFrame {
             g.fillOval(i*scale, j*scale, 10, 10);
           } else if (field.field[i][j] < 0) {
             // its a pickup
+            // i've got hickup
             Pickup pickup = field.findPickup(field.field[i][j]);
             if (pickup.type == 1) {
               g.setColor(Color.black);
