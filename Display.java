@@ -19,7 +19,7 @@ public class Display extends JFrame {
 
     public void paintComponent (Graphics g) {
       super.paintComponent(g); //??????
-      setBackground(Color.red);
+      setBackground(Color.white);
       for (int i = 0; i < field.sizeX; i++) {
         for (int j = 0; j < field.sizeY; j++) {
           if (field.field[i][j] == 1) {
@@ -27,6 +27,12 @@ public class Display extends JFrame {
             g.fillOval(i*scale, j*scale, 10, 10);
           } else if (field.field[i][j] == 2) {
             g.setColor(Color.green);
+            g.fillOval(i*scale, j*scale, 10, 10);
+          } else if (field.field[i][j] == 3) {
+            g.setColor(Color.red);
+            g.fillOval(i*scale, j*scale, 10, 10);
+          } else if (field.field[i][j] == 4) {
+            g.setColor(Color.yellow);
             g.fillOval(i*scale, j*scale, 10, 10);
           } else if (field.field[i][j] < 0) {
             // its a pickup

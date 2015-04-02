@@ -4,8 +4,6 @@ public class Field {
   /* Class Field is supposed to be initialized once per game and contains
    * information about the current state of the field, as number of players,
    * points, effects and of course the free/occupied fields.
-   *
-   *  
    */
 
   int sizeY;
@@ -18,9 +16,8 @@ public class Field {
   int numPlayers;
   int pointsToWin;
 
-
   public Field(int width, int heigth) {
-    numPlayers = 1;  // useless at the moment
+    numPlayers = 2;  // useless at the moment
     sizeX = width;
     sizeY = heigth;
     // initialize the field

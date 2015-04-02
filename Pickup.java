@@ -40,11 +40,12 @@ public class Pickup {
         field.field[(int)posX-i][(int)posY+i] = id;
         field.field[(int)posX+i][(int)posY+i] = id;
       }
-      field.pickups.add(this);
+      field.pickups.add(this);  // Add the pickup to the list of pickups in field
     }
   }
 
   public void disappear(Field field) {
+    // Clear the pickup from the field
     field.field[(int)posX][(int)posY]     = 0;
     for (int i = 0; i < 5; i++) {
       field.field[(int)posX-i][(int)posY-i] = 0;
@@ -55,6 +56,7 @@ public class Pickup {
   }
 
   public void perform(Snake snake, Field field) {
+    // Execute the pickups special ability
     if (type == 1) {
       field.wall();
     } else if (type == 2) {
