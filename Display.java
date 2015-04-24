@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 public class Display extends JFrame {
@@ -13,40 +14,51 @@ public class Display extends JFrame {
 
   class DrawPanel extends JPanel {
     Field field;
-    public DrawPanel (Field field2) {
+    BufferedImage bimage;
+    public DrawPanel (Field field2, int width, int height) {
       field = field2;
+      bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     }
 
     public void paintComponent (Graphics g) {
-      super.paintComponent(g); //??????
-      setBackground(Color.white);
+      // super.paintComponent(g); //??????
+      // setBackground(Color.white);
+      // 2DGraphics create from g to display BufferedImage
+      Graphics2D g2 = (Graphics2D)g;
+      // New Graphics createed from the Buffered Image in order to draw on it
+      Graphics2D gr = bimage.createGraphics();
       for (int i = 0; i < field.sizeX; i++) {
         for (int j = 0; j < field.sizeY; j++) {
-          if (field.field[i][j] == 1) {
-            g.setColor(Color.blue);
-            g.fillOval(i*scale, j*scale, 10, 10);
-          } else if (field.field[i][j] == 2) {
-            g.setColor(Color.green);
-            g.fillOval(i*scale, j*scale, 10, 10);
-          } else if (field.field[i][j] == 3) {
-            g.setColor(Color.red);
-            g.fillOval(i*scale, j*scale, 10, 10);
-          } else if (field.field[i][j] == 4) {
-            g.setColor(Color.yellow);
-            g.fillOval(i*scale, j*scale, 10, 10);
-          } else if (field.field[i][j] < 0) {
-            // its a pickup
-            // i've got hickup
-            Pickup pickup = field.findPickup(field.field[i][j]);
-            if (pickup.type == 1) {
-              g.setColor(Color.black);
-            } else if (pickup.type == 2) {
-              g.setColor(Color.yellow);
+          // Only draw points which have not been drawn yet
+          if (!field.isDrawn[i][j]) {
+            field.isDrawn[i][j] = true;
+            if (field.field[i][j] == 1) {
+              gr.setColor(Color.cyan);
+              gr.fillOval(i*scale, j*scale, 10, 10);
+            } else if (field.field[i][j] == 2) {
+              gr.setColor(new Color(102, 0, 102));
+              gr.fillOval(i*scale, j*scale, 10, 10);
+            } else if (field.field[i][j] == 3) {
+              gr.setColor(Color.red);
+              gr.fillOval(i*scale, j*scale, 10, 10);
+            } else if (field.field[i][j] == 4) {
+              gr.setColor(Color.yellow);
+              gr.fillOval(i*scale, j*scale, 10, 10);
+            } else if (field.field[i][j] < 0) {
+              // its a pickup
+              // i've got hickup
+              Pickup pickup = field.findPickup(field.field[i][j]);
+              if (pickup.type == 1) {
+                gr.setColor(Color.white);
+              } else if (pickup.type == 2) {
+                gr.setColor(Color.yellow);
+              }
+              gr.fillOval(i*scale, j*scale, 10, 10);
             }
-            g.fillOval(i*scale, j*scale, 10, 10);
           }
         }
       }
+      g2.drawImage(bimage, null, 0, 0);
     }
   }
 
@@ -66,7 +78,7 @@ public class Display extends JFrame {
     // adding some for the border, though not sure why
     setBounds(0,0,field.sizeX*scale+10, field.sizeY*scale+50);
 
-    setContentPane(new DrawPanel(field));
+    setContentPane(new DrawPanel(field, screenWidth, screenHeight));
     setVisible(true);
   }
 

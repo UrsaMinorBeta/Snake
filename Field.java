@@ -10,6 +10,7 @@ public class Field {
   int sizeX;
   boolean walls = false;  // True = walls, False = leave left: enter right
   int[][] field;  // contains information for each cell with 0 = free, pos int = snakes, neg int = pickups
+  boolean[][] isDrawn;  // determines wether a point on the field has already been drawn 
 
   List<Pickup> pickups = new ArrayList<Pickup>();  // contains all active pickups
 
@@ -22,9 +23,11 @@ public class Field {
     sizeY = heigth;
     // initialize the field
     field = new int[sizeX][sizeY];
+    isDrawn = new boolean[sizeX][sizeY];
     for (int i = 0; i < sizeX; i++) {
       for (int j = 0; j < sizeY; j++) {
         field[i][j] = 0;
+        isDrawn[i][j] = true;
       }
     }
   }

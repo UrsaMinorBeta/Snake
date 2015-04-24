@@ -102,6 +102,7 @@ public class Snake {
       int x = (body[i].x + field.sizeX) % field.sizeX;
       int y = (body[i].y + field.sizeY) % field.sizeY;
       field.field[x][y] = id;
+      field.isDrawn[x][y] = false;
     }
   }
 }
