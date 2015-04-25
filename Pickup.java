@@ -39,10 +39,10 @@ public class Pickup {
         field.field[(int)posX+i][(int)posY-i] = id;
         field.field[(int)posX-i][(int)posY+i] = id;
         field.field[(int)posX+i][(int)posY+i] = id;
-        field.isDrawn[(int)posX-i][(int)posY-i] = true;
-        field.isDrawn[(int)posX+i][(int)posY-i] = true;
-        field.isDrawn[(int)posX-i][(int)posY+i] = true;
-        field.isDrawn[(int)posX+i][(int)posY+i] = true;
+        field.isDrawn[(int)posX-i][(int)posY-i] = false;
+        field.isDrawn[(int)posX+i][(int)posY-i] = false;
+        field.isDrawn[(int)posX-i][(int)posY+i] = false;
+        field.isDrawn[(int)posX+i][(int)posY+i] = false;
       }
       field.pickups.add(this);  // Add the pickup to the list of pickups in field
     }
@@ -56,6 +56,10 @@ public class Pickup {
       field.field[(int)posX+i][(int)posY-i] = 0;
       field.field[(int)posX-i][(int)posY+i] = 0;
       field.field[(int)posX+i][(int)posY+i] = 0;
+      field.isDrawn[(int)posX-i][(int)posY-i] = false;
+      field.isDrawn[(int)posX+i][(int)posY-i] = false;
+      field.isDrawn[(int)posX-i][(int)posY+i] = false;
+      field.isDrawn[(int)posX+i][(int)posY+i] = false;
     }
   }
 

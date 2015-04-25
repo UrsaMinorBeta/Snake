@@ -44,6 +44,9 @@ public class Display extends JFrame {
             } else if (field.field[i][j] == 4) {
               gr.setColor(Color.yellow);
               gr.fillOval(i*scale, j*scale, 10, 10);
+            } else if (field.field[i][j] == 0) {
+              gr.setColor(Color.black);
+              gr.fillOval(i*scale, j*scale, 10, 10);
             } else if (field.field[i][j] < 0) {
               // its a pickup
               // i've got hickup

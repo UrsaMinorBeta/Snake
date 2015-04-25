@@ -65,6 +65,10 @@ public class Field {
   public void erase() {
     for (int i = 0; i < sizeX; i++) {
       for (int j = 0; j < sizeY; j++) {
+        // Due to better performance only redraw field-points which are occupied
+        if (field[i][j] != 0) {
+          isDrawn[i][j] = false;
+        }
         field[i][j] = 0;
       }
     }
